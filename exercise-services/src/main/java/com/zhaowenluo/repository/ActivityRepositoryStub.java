@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zhaowenluo.model.Activity;
+import com.zhaowenluo.model.ActivitySearch;
 import com.zhaowenluo.model.User;
 
 public class ActivityRepositoryStub implements ActivityRepository {
@@ -79,6 +80,69 @@ public class ActivityRepositoryStub implements ActivityRepository {
 	@Override
 	public Activity deleteActivity(String activityId) {
 		return activities.remove(Integer.parseInt(activityId)-1);
+	}
+
+//	@Override
+//	public List<Activity> findByDescription(List<String> descriptions) {
+//		
+//		// select * from activities where description in (?,?,?)
+//		
+//		Activity activity = new Activity();
+//		activity.setId(7);
+//		activity.setDescription("Camping");
+//		activity.setDuration(1000);
+//		
+//		this.activities.add(activity);
+//		
+//		return this.activities;
+//	}
+
+	@Override
+	public List<Activity> findByDescription(List<String> descriptions, int durationFrom, int durationTo) {
+		// select * from activities where description in (?,?,?) and duration > ? and duration < ?
+		
+		Activity activity = new Activity();
+		activity.setId(7);
+		activity.setDescription("Camping");
+		activity.setDuration(1000);
+		
+		Activity activity2 = new Activity();
+		activity2.setId(10);
+		activity2.setDescription("Coding");
+		activity2.setDuration(10000000);
+		
+		this.activities.add(activity);
+		this.activities.add(activity2);
+		
+		return this.activities;
+	}
+
+	@Override
+	public List<Activity> findByConstraints(ActivitySearch activitySearch) {
+		
+		System.out.println(activitySearch.getSearchType());
+		
+		Activity activity = new Activity();
+		activity.setId(7);
+		activity.setDescription("Camping");
+		activity.setDuration(1000);
+		
+		Activity activity2 = new Activity();
+		activity2.setId(10);
+		activity2.setDescription("Coding");
+		activity2.setDuration(10000000);
+		
+		Activity activity3 = new Activity();
+		activity3.setId(10);
+		activity3.setDescription("Coding2.0");
+		activity3.setDuration(325236535);
+		
+		this.activities.add(activity);
+		this.activities.add(activity2);
+		this.activities.add(activity3);
+		
+		return this.activities;
+		
 	}
 	
 }

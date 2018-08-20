@@ -2,11 +2,14 @@ package com.zhaowenluo.client;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.zhaowenluo.model.Activity;
+import com.zhaowenluo.model.ActivitySearch;
+import com.zhaowenluo.model.ActivitySearchType;
 
 public class ActivityClientTest {
 
@@ -76,5 +79,60 @@ public class ActivityClientTest {
 		
 		assertNotNull(activity);
 	}
+	
+	@Test
+	public void testSearch() {
+		ActivitySearchClient client = new ActivitySearchClient();
+		
+		String param = "description";
+		List<String> searchValues = new ArrayList();
+		searchValues.add("Camping");
+		searchValues.add("Eating");
+		
+		String secondParam = "durationFrom";
+		int durationFrom = 30;
+		String thirdParam = "durationTo";
+		int durationTo = 55;
+		
+		List<Activity> activities = client.search(param, searchValues, secondParam, durationFrom, thirdParam, durationTo);
+		
+		assertNotNull(activities);
+	}
+	
+	
+	//OVERLOAD IS NOT A GOOD IDEA, TOO MUCH REFRACTORING IS SUCH
+//	@Test
+//	public void testSearchOverload() {
+//		ActivitySearchClient client = new ActivitySearchClient();
+//		
+//		String param = "description";
+//		List<String> searchValues = new ArrayList();
+//		searchValues.add("Camping");
+//		searchValues.add("Eating");
+//		
+//		List<Activity> activities = client.search(param, searchValues);
+//		
+//		assertNotNull(activities);
+//	}
+	
+	@Test
+	public void testSearchObject() {
+		ActivitySearchClient client = new ActivitySearchClient();
+	
+		List<String> searchValues = new ArrayList<>();
+		searchValues.add("biking");
+		searchValues.add("running");
+		
+		ActivitySearch search = new ActivitySearch();
+		search.setDescriptions(searchValues);
+		search.setDurationFrom(30);
+		search.setDurationTo(55);
+		search.setSearchType(ActivitySearchType.SEARCH_BY_DESCRIPTION);
+		
+		List<Activity> activities = client.search(search);
+		
+		assertNotNull(activities);
+	}
+
 
 }
